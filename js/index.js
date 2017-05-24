@@ -27,6 +27,9 @@ function myBangumiInfo() {
 
 function addBangumi() {
     var url = wv.src;
+    if (!url.match(/subject/)) {
+        return false;
+    }
     var loading = document.getElementById("loading");
     loading.style.display = "block";
     http.get(url, function(res) {
