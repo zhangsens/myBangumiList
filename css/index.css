@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.loading {
+    display: none;
+    position: fixed;
+    width: 400px;
+    height: 600px;
+    background-color: #000000;
+    opacity: 0.4;
+}
+
+.myBangumiInfo {
+    display: none;
+    overflow: auto;
+    width: 400px;
+    height: 560px;
+}
+
+.myBangumiInfo>div {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.myBangumiInfo>div>div>p>span {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    border: 3px solid #00ccff;
+    border-radius: 5px;
+}
+
+.top {
+    display: flex;
+    height: 40px;
+    align-items: center;
+}
+
+.icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #00ccff;
+    text-align: center;
+    line-height: 20px;
+    flex-grow: 1;
+}
+
+webview {
+    width: 100%;
+    height: 560px;
+}
+
+.looked {
+    background-color: #00ccff;
+}

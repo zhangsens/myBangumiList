@@ -1,0 +1,26 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div class="top">
+        <span class="icon"><</span>
+        <span class="icon">></span>
+        <span class="home icon" onclick="returnIndex()">bangumi</span>
+        <span class="add icon" onclick="addBangumi()">+</span>
+        <span class="my icon" onclick="myBangumiInfo()">我的追番</span>
+        <span class="close icon" onclick="closeWindow()">X</span>
+    </div>
+
+    <div class="loading" id="loading">loading</div>
+    <webview id="wv" src="http://bangumi.tv/subject_search"></webview>
+    <div class="myBangumiInfo" id="myBangumiInfo">
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
