@@ -4,14 +4,14 @@ const BrowserWindow = electron.BrowserWindow;
 let win;
 
 function openWindow() {
-    win = new BrowserWindow({ width: 400, height: 600, frame: false });
+    win = new BrowserWindow({ width: 900, height: 600, frame: false });
 
     win.loadURL('file://' + __dirname + '/index.html');
 
     win.on("closed", () => {
         win = "";
     });
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 }
 
 app.on('activate', () => {
