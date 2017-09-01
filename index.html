@@ -3,6 +3,7 @@
 
 <head>
     <title>bangumiList</title>
+    <link rel="stylesheet" href="./css/app.css">
     <link rel="stylesheet" href="./css/index.css">
     <script>
         require('babel-register')(require('./babel.config'));
@@ -18,12 +19,13 @@
         <span class="my icon" onclick="myBangumiInfo()">我的追番</span>
         <span class="close icon" onclick="closeWindow()">X</span>
     </div> -->
-
-    <app-head></app-head>
-    <app-search></app-search>
-    <app-bangumi></app-bangumi>
-    <app-me></app-me>
-    <webview id="wv" src="http://bangumi.tv/subject_search"></webview>
+    <app>
+        <app-head></app-head>
+        <app-search></app-search>
+        <app-bangumi></app-bangumi>
+        <app-me></app-me>
+    </app>
+    <!-- <webview id="wv" src="http://bangumi.tv/subject_search"></webview> -->
     <!-- <div class="myBangumiInfo" id="myBangumiInfo">
     </div> -->
     <script>

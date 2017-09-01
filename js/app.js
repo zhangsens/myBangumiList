@@ -1,30 +1,47 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { returnIndex, myBangumiInfo, addBangumi, closeWindow } from './index'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { Head } from './components/head'
+import { Search } from './components/search'
+import { Bangumi } from './components/bangumi'
+import { Me } from './components/me'
+
+var res=0;
+var store=createStore((state={res:res},action)=>{
+    const res = state.res;
+    switch(action.type){
+        case 'search':
+            var keyword = sInput.value;
+            const res = state.res;
+            return  { res: res + 1 }
+            break;
+        default:
+            return { state }
+            break;
+    }
+});
 
 ReactDOM.render(
-    <div className="header">
-        <span className="icon">前进</span>
-        <span className="icon">后退</span>
-        <span className="icon" onClick={returnIndex}>bangumi</span>
-        <span className="icon" onClick={addBangumi}>+</span>
-        <span className="icon" onClick={myBangumiInfo}>我的追番</span>
-        <span className="icon" onClick={closeWindow}>X</span>
-    </div>,
+    <Provider store={store}>
+        <Head />
+    </Provider>,
     document.querySelector('app-head')
 )
 
 ReactDOM.render(
-    <div></div>,
+    <Provider store={store}>
+        <Search />
+    </Provider>,
     document.querySelector('app-search')
 )
 
 ReactDOM.render(
-    <div className="bangumiInfo" id="bangumiInfo"></div>,
+    <Bangumi></Bangumi>,
     document.querySelector('app-bangumi')
 )
 
 ReactDOM.render(
-    <div className="me" id="me"></div>,
+    <Me />,
     document.querySelector('app-me')
 )

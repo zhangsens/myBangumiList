@@ -5,59 +5,59 @@ body {
 
 .header {
     display: flex;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.head {
+    height: 40px;
 }
 
 .icon {
     background-color: #00ccff;
     text-align: center;
-    line-height: 20px;
+    line-height: 40px;
     flex-grow: 1;
+    transition: 1s all ease;
+}
+
+.icon:hover {
+    background-color: #ffffff;
+}
+
+.s-input {
+    display: none;
 }
 
 .active {
-    background-color: #ffffff !important;
+    background-color: #ffffff;
 }
 
-.loading {
+.search {
     display: none;
-    position: fixed;
-    width: 400px;
-    height: 600px;
-    background-color: #000000;
-    opacity: 0.4;
-}
-
-.myBangumiInfo {
-    display: none;
-    overflow: auto;
-    width: 400px;
-    height: 560px;
-}
-
-.myBangumiInfo>div {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.myBangumiInfo>div>div>p>span {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-    border: 3px solid #00ccff;
-    border-radius: 5px;
-}
-
-.top {
-    display: flex;
-    height: 40px;
-    align-items: center;
-}
-
-webview {
+    position: absolute;
     width: 100%;
-    height: 560px;
+    height: 100%;
+    background: #000;
+    opacity: 0.2;
+    z-index: 0;
 }
 
-.looked {
-    background-color: #00ccff;
+.bangumi {
+    display: none;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 2;
+}
+
+.me {
+    width: 100%;
+    height: 100%;
 }
