@@ -1,2 +1,2 @@
-# myBangumiList
-我的番剧列表
+# BangumiList
+番剧列表

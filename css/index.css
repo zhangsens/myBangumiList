@@ -10,12 +10,8 @@ body {
     z-index: 1;
 }
 
-.head {
-    height: 40px;
-}
-
 .icon {
-    background-color: #00ccff;
+    background-color: #00CBFF;
     text-align: center;
     line-height: 40px;
     flex-grow: 1;
@@ -44,6 +40,10 @@ body {
     z-index: 0;
 }
 
+.list {
+    height: 40px;
+}
+
 .bangumi {
     display: none;
     position: absolute;
@@ -60,4 +60,13 @@ body {
 .me {
     width: 100%;
     height: 100%;
+}
+
+.loading {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
 }
