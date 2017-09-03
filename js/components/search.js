@@ -7,7 +7,7 @@ const Search = connect(
     list(list){
         var html = [];
         for(let i = 0;i<list.length;i++){
-            html.push( <div key={i} className="list">{list[i].name}</div> );
+            html.push( <li key={i} className="list"><img className="list-img" src={`http:`+list[i].img} /><b>{list[i].name}</b></li> );
         }
         return html
     }
@@ -15,8 +15,10 @@ const Search = connect(
         const { list } = this.props;
         return (
             <div className="search" id="search">
-                <li className="list"></li>
-                { list ? this.list(list) : "" }
+                <ul>
+                    <li className="list">result:</li>
+                    { list ? this.list(list) : [<li key="0" className="list"><b>no result</b></li>] }
+                </ul>
             </div>
         )
     }
