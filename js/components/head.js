@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { dangumiSearch, myBangumiInfo, addBangumi, closeWindow } from '../script/index'
+import { addBangumi } from '../script/index'
+import { remote } from "electron"
 
 import {get } from 'http'
 import fs from 'fs'
@@ -8,7 +9,9 @@ import { load } from 'cheerio'
 
 const search_kw = "高校舰队";
 
-const Head = connect()(class Head extends React.Component{
+const Head = connect(
+    (state)=>({target:state.target})
+)(class Head extends React.Component{
     searchKeyWord(){
         return search_kw;//sInput.value;
     }
@@ -40,16 +43,45 @@ const Head = connect()(class Head extends React.Component{
             })
         });
     }
+    dangumiSearch(dispatch){
+        dispatch({type:"active",target:"tSearch"});
+        search.style.display = "block";
+        //sInput.style.display = "inline-block";
+        //btn.style.display = "inline-block";
+        bangumi.style.display = "none";
+        tSearch.style.flexGrow = 6;
+    }
+    myBangumiInfo(dispatch){
+        dispatch({type:"active",target:"tMe"});
+        search.style.display = "none";
+        //sInput.style.display = "none";
+        //btn.style.display = "none";
+        bangumi.style.display = "none";
+        tSearch.style.flexGrow = 1;
+    }
+    closeWindow(){
+        remote.getCurrentWindow().close();
+    }
+    searchHTML(target){
+        var html = [];
+        if(target=="tSearch"){
+            html[0] = <input key="sInput" className="s-input" id="sInput" type="test" />;
+            html[1] = <button key="btn" id="btn" onClick={this.searchRequest.bind(this,this.props.dispatch)}>搜</button>;
+        }else{
+            html.push("search");
+        }
+        return html;
+    }
     render(){
+        var { target } = this.props;
+        target = target?target:"tMe";
         return (
             <div className="header">
-                <span className="icon" id="tSearch" onClick={dangumiSearch}>
-                    search
-                    <input className="s-input" id="sInput" type="test" />
-                    <button id="btn" onClick={this.searchRequest.bind(this,this.props.dispatch)}>搜</button>
+                <span className={target=="tSearch"?"icon active":"icon"} id="tSearch" onClick={this.dangumiSearch.bind(this,this.props.dispatch)}>
+                    {this.searchHTML(target)}
                 </span>
-                <span className="icon" id="tMe" onClick={myBangumiInfo}>我的追番</span>
-                <span className="icon" id="close" onClick={closeWindow}>×</span>
+                <span className={target=="tMe"?"icon active":"icon"} id="tMe" onClick={this.myBangumiInfo.bind(this,this.props.dispatch)}>我的追番</span>
+                <span className="icon" id="close" onClick={this.closeWindow}>×</span>
             </div>
         )
     }

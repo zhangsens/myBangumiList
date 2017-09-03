@@ -7,6 +7,11 @@ const store = createStore((state, action) => {
             var _result = action.result;
             return { result: _result }
             break;
+        case 'active':
+            var target = state.target;
+            var _target = action.target;
+            return { target: _target };
+            break;
         default:
             return { state }
             break;
