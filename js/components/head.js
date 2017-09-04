@@ -37,13 +37,11 @@ const Head = connect(
     dangumiSearch(dispatch){
         dispatch({type:"active",target:"tSearch"});
         search.style.display = "block";
-        bangumi.style.display = "none";
         tSearch.style.flexGrow = 6;
     }
     myBangumiInfo(dispatch){
         dispatch({type:"active",target:"tMe"});
         search.style.display = "none";
-        bangumi.style.display = "none";
         tSearch.style.flexGrow = 1;
     }
     closeWindow(){
