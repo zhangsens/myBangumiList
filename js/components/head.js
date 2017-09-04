@@ -1,19 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addBangumi } from '../script/index'
 import { remote } from "electron"
-
-import {get } from 'http'
-import fs from 'fs'
-import { load } from 'cheerio'
-
-const search_kw = "高校舰队";
+import { requireSearch } from '../script/requireSearch'
 
 const Head = connect(
     (state)=>({target:state.target})
 )(class Head extends React.Component{
     searchKeyWord(){
-        return search_kw;//sInput.value;
+        return sInput.value;
     }
     searchURL(){
         var keyword = encodeURI(this.searchKeyWord());
@@ -22,40 +16,33 @@ const Head = connect(
     }
     searchRequest(dispatch){
         var url = this.searchURL();
-        get(url, function(res) {
-            var html = "";
-            var result = new Array();
-            res.on("data", function(chunk) {
-                html += chunk;
-            })
-            res.on("end", function() {
-                fs.writeFile("./log.html", html, "utf8", function() {});
-                var $ = load(html);
-                var li = $("#browserItemList li");
-                for (let i = 0; i < li.length; i++) {
-                    let list = {};
-                    list.img = li.find("a img")[i].attribs.src;
-                    list.name = li.find("a")[i * 2 + 1].firstChild.data;
-                    list.href = li.find("a")[i * 2 + 1].attribs.href;
-                    result.push(list);
-                }
-                dispatch({type:"search",result:result})
-            })
-        });
+        var page = 1;
+        var result = new Array();
+
+        requireSearch(url,page,searchlist,end);
+
+        function searchlist(li){
+            for (let i = 0; i < li.length; i++) {
+                let list = {};
+                list.img = li.find("a img")[i]?li.find("a img")[i].attribs.src:"/";
+                list.name = li.find("a")[i * 2 + 1].firstChild.data;
+                list.href = li.find("a")[i * 2 + 1].attribs.href;
+                result.push(list);
+            }
+        }
+        function end(){
+            dispatch({type:"search",result:result});
+        }
     }
     dangumiSearch(dispatch){
         dispatch({type:"active",target:"tSearch"});
         search.style.display = "block";
-        //sInput.style.display = "inline-block";
-        //btn.style.display = "inline-block";
         bangumi.style.display = "none";
         tSearch.style.flexGrow = 6;
     }
     myBangumiInfo(dispatch){
         dispatch({type:"active",target:"tMe"});
         search.style.display = "none";
-        //sInput.style.display = "none";
-        //btn.style.display = "none";
         bangumi.style.display = "none";
         tSearch.style.flexGrow = 1;
     }

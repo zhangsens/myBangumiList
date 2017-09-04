@@ -1,16 +1,21 @@
 import { createStore } from 'redux'
 
-const store = createStore((state, action) => {
+const store = createStore((state = {}, action) => {
+    var result = state.result;
+    var target = state.target;
+    var bangumi = state.bangumi;
     switch (action.type) {
         case 'search':
-            var result = state.result;
             var _result = action.result;
-            return { result: _result }
+            return { result: _result, target: target }
             break;
         case 'active':
-            var target = state.target;
             var _target = action.target;
-            return { target: _target };
+            return { result: result, target: _target };
+            break;
+        case 'detail':
+            var _bangumi = action.bangumi;
+            return { result: result, target: target, bangumi: _bangumi }
             break;
         default:
             return { state }

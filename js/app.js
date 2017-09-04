@@ -22,12 +22,16 @@ ReactDOM.render(
 )
 
 ReactDOM.render(
-    <Bangumi></Bangumi>,
+    <Provider store={store}>
+        <Bangumi />
+    </Provider>,
     document.querySelector('app-bangumi')
 )
 
 ReactDOM.render(
-    <Me />,
+    <Provider store={store}>
+        <Me />
+    </Provider>,
     document.querySelector('app-me')
 )
 
