@@ -8,13 +8,12 @@ const Search = connect(
     (state) => ({list: state.result,bangumi:state.bangumi})
 )(class Search extends React.Component{
     detail(i,dispatch){
-        var bangumi = new Object();
-        bangumi.id = this.props.list[i].href.split("/")[2];
+        bangumiDetail.style.display = "block";
+        bangumiLoading.style.display = "block";
         if(this.props.bangumi && bangumi.id == this.props.bangumi.id){
-            bangumiDetail.style.display = "block";
+            bangumiLoading.style.display = "none";
         }else{
-            bangumi.name = this.props.list[i].name;
-            bangumi.img = this.props.list[i].img;
+            var bangumi = this.props.list[i];
             var href = `http://bangumi.tv/${this.props.list[i].href}`;
             get(href,function(res){
                 var html = "";
@@ -24,20 +23,24 @@ const Search = connect(
                 res.on("end",function(){
                     var $ = load(html);
                     bangumi.summary = $("#subject_summary").text();
-                    bangumi.eps = $(".prg_list li a");
-                    bangumiDetail.style.display = "block";
+                    bangumi.ephref = `${bangumi.href}/ep`;
+                    bangumi.epsum = $(".prg_list li a").length;
+                    bangumi.eplist = [];
+                    bangumiLoading.style.display = "none";
+                    console.log(bangumi);
                     dispatch({type:"detail",bangumi:bangumi});
                 })
-            }) 
+            }).on("error",function(err){
+                console.log(err);
+            })
         }
-        
         //Promise(info).then(eps)
     }
     list(list){
         var html = [];
         var dispatch = this.props.dispatch;
         for(let i = 0;i<list.length;i++){
-            html.push( <li key={i} className="list"><a onClick={this.detail.bind(this,i,dispatch)}><img className="list-img" src={list[i].img=="/"?``:`http:`+list[i].img} /><b>{list[i].name}</b></a></li> );
+            html.push( <li key={list[i].id} className="list"><a onClick={this.detail.bind(this,i,dispatch)}><img className="list-img" src={list[i].img=="/"?``:`http:`+list[i].img} /><b>{list[i].name}</b></a></li> );
         }
         return html;
     }

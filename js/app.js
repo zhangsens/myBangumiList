@@ -36,6 +36,8 @@ ReactDOM.render(
 )
 
 ReactDOM.render(
-    <div className="loading" id="loading"></div>,
+    <div className="loading" id="loading">
+        <div>loading</div>
+    </div>,
     document.querySelector('app-loading')
 )

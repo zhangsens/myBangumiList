@@ -17,6 +17,9 @@ const store = createStore((state = {}, action) => {
             var _bangumi = action.bangumi;
             return { result: result, target: target, bangumi: _bangumi }
             break;
+        case 'addbangumi':
+            var _addbangumi = action.addbangumi;
+            break;
         default:
             return { state }
             break;

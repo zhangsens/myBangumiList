@@ -18,6 +18,7 @@ const Head = connect(
         var url = this.searchURL();
         var page = 1;
         var result = new Array();
+        loading.style.display = "block";
 
         requireSearch(url,page,searchlist,end);
 
@@ -27,19 +28,24 @@ const Head = connect(
                 list.img = li.find("a img")[i]?li.find("a img")[i].attribs.src:"/";
                 list.name = li.find("a")[i * 2 + 1].firstChild.data;
                 list.href = li.find("a")[i * 2 + 1].attribs.href;
+                list.id = list.href.split("/")[2];
                 result.push(list);
             }
         }
         function end(){
+            loading.style.display = "none";
+            console.log(result);
             dispatch({type:"search",result:result});
         }
     }
     dangumiSearch(dispatch){
+        console.log("tSearch");
         dispatch({type:"active",target:"tSearch"});
         search.style.display = "block";
         tSearch.style.flexGrow = 6;
     }
     myBangumiInfo(dispatch){
+        console.log("tMe");
         dispatch({type:"active",target:"tMe"});
         search.style.display = "none";
         tSearch.style.flexGrow = 1;
