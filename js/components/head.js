@@ -10,8 +10,8 @@ const Head = connect(
         return sInput.value;
     }
     searchURL(){
-        var keyword = encodeURI(this.searchKeyWord());
-        var url = `http://bangumi.tv/subject_search/${keyword}?cat=2`;
+        const keyword = encodeURI(this.searchKeyWord());
+        const url = `http://bangumi.tv/subject_search/${keyword}?cat=2`;
         return url;
     }
     searchRequest(dispatch){
@@ -25,8 +25,9 @@ const Head = connect(
         function searchlist(li){
             for (let i = 0; i < li.length; i++) {
                 let list = {};
-                list.img = li.find("a img")[i]?li.find("a img")[i].attribs.src:"/";
+                list.id = "";
                 list.name = li.find("a")[i * 2 + 1].firstChild.data;
+                list.img = li.find("a img")[i]?li.find("a img")[i].attribs.src:"/";
                 list.href = li.find("a")[i * 2 + 1].attribs.href;
                 list.id = list.href.split("/")[2];
                 result.push(list);
@@ -34,21 +35,16 @@ const Head = connect(
         }
         function end(){
             loading.style.display = "none";
-            console.log(result);
             dispatch({type:"search",result:result});
         }
     }
     dangumiSearch(dispatch){
         console.log("tSearch");
         dispatch({type:"active",target:"tSearch"});
-        search.style.display = "block";
-        tSearch.style.flexGrow = 6;
     }
     myBangumiInfo(dispatch){
         console.log("tMe");
         dispatch({type:"active",target:"tMe"});
-        search.style.display = "none";
-        tSearch.style.flexGrow = 1;
     }
     closeWindow(){
         remote.getCurrentWindow().close();
@@ -65,6 +61,13 @@ const Head = connect(
     }
     render(){
         var { target } = this.props;
+        if(target == "tMe"){
+            search.style.display = "none";
+            tSearch.style.flexGrow = 1;
+        }else if(target == "tSearch"){
+            search.style.display = "block";
+            tSearch.style.flexGrow = 6;
+        }
         target = target?target:"tMe";
         return (
             <div className="header">

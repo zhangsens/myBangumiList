@@ -11,8 +11,8 @@ const Bangumi = connect(
         bangumiDetail.style.display = "none";
     }
     addBangumi(bangumi,dispatch){
-        var addbangumi = bangumi;
-        get(`http://bangumi.tv/${addbangumi.ephref}`,function(res){
+        const close = this.closed;
+        get(`http://bangumi.tv/${bangumi.ephref}`,function(res){
             var html = "";
             res.on("data",function(chunk){
                 html += chunk;
@@ -20,21 +20,19 @@ const Bangumi = connect(
             res.on("end",function(){
                 var $ = load(html);
                 var eps = $(".line_list a");
-                addbangumi.eps = [];
                 for(let i = 0;i<eps.length;i++){
                     let epinfo = /([a-z]*[0-9]+).(.*)/i.exec(eps[i].children[0].data);
                     let ep = epinfo[1];
                     let title = epinfo[2];
-                    addbangumi.eps.push({ep:ep,title:title})
+                    bangumi.eplist.push({ep:ep,title:title})
                 }
-                console.log(addbangumi)
-                dispatch({type:"addbangumi",addbangumi:addbangumi});
+                close();
+                dispatch({type:"active",target:"tMe",bangumi:bangumi});
             })
         })
     }
     render(){
         var { bangumi } = this.props;
-        console.log(bangumi);
         return (
             <div className="bangumi" id="bangumiDetail">
                 <div className="title">番剧:{bangumi?bangumi.name:""}</div>

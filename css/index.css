@@ -3,6 +3,11 @@ body {
     padding: 0;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 li {
     list-style: none;
 }
@@ -42,14 +47,9 @@ li {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: hsla(0, 0%, 0%, 0.2);
+    background: hsla(0, 0%, 0%, 0.6);
     overflow: auto;
     z-index: 1;
-}
-
-.search ul {
-    margin: 0;
-    padding: 0;
 }
 
 .list {
@@ -150,6 +150,35 @@ li {
     width: 100%;
     height: 100%;
     z-index: 0;
+}
+
+.me>ul>li {
+    display: flex;
+    line-height: 40px;
+    align-items: flex-start;
+}
+
+.me .my-bangumi-li {
+    flex-grow: 1;
+}
+
+.me .my-bangumi-li p {
+    margin: 0;
+    text-align: center;
+}
+
+.me .my-bangumi-li ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.me .my-bangumi-li ul li {
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 5px;
+    border-radius: 5px;
+    background: hsla(0, 0%, 50%, 1);
 }
 
 .blurred {

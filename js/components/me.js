@@ -2,32 +2,99 @@ import React from "react"
 import { connect } from 'react-redux'
 
 import fs from 'fs'
-var exist = fs.existsSync("./data");
+const dir="./data";
+const looking="./data/looking.data";
+const looked="./data/looked.data";
+const exist = fs.existsSync(dir);
 if(exist){
-    var bangumi_looking = fs.existsSync("./data/looking.data");
-    if(!bangumi_looking){
-        fs.writeFileSync("./data/looking.data","");
+    const filelooking = fs.existsSync(looking);
+    if(!filelooking){
+        fs.writeFileSync(looking,"[]");
     }
-    var bangumi_looked = fs.existsSync("./data/looked.data");
-    if(!bangumi_looked){
-        fs.writeFileSync("./data/looked.data","");
+    const filelooked = fs.existsSync(looked);
+    if(!filelooked){
+        fs.writeFileSync(looked,"[]");
     }
+    var bangumiLooking = fs.readFileSync(looking).toString('utf-8');
+    bangumiLooking = bangumiLooking?JSON.parse(bangumiLooking):[];
+    var bangumiLooked = fs.readFileSync(looked).toString('utf-8');
+    bangumiLooked = bangumiLooked?JSON.parse(bangumiLooked):[];
 }else{
-    fs.mkdirSync("./data");
-    fs.writeFileSync("./data/looking.data","");
-    fs.writeFileSync("./data/looked.data","");
+    fs.mkdirSync(dir);
+    fs.writeFileSync(looking,"[]");
+    fs.writeFileSync(looked,"[]");
 }
 
-
 const Me = connect(
-    (state)=>({target:state.target})
+    (state)=>({target:state.target,bangumi:state.bangumi})
 )(class Me extends React.Component{
+    info(bangumi){
+        return (
+            <li key={bangumi.id}>
+                <img src={`http:${bangumi.img}`} />
+                <div className="my-bangumi-li">
+                    <p>{bangumi.name}</p>
+                    <ul>{this.epmap(bangumi.eplist)}</ul>
+                </div>
+            </li>
+        )
+    }
+    epmap(eplist){
+        var eps = [];
+        for(let i in eplist){
+            eps.push(<li key={`${eplist[i].title}`}>{`${eplist[i].ep}`}</li>)
+        }
+        return eps;
+    }
+    bangumiList(){
+        const html = [];
+        html.push(<li key="looking">正在追/补的番剧：</li>);
+        for(let i in bangumiLooking){
+            let li = this.info(bangumiLooking[i]);
+            html.push(li);
+        }
+        html.push(<li key="looked">已经补完的番剧：</li>);
+        for(let i in bangumiLooked){
+            let li = this.info(bangumiLooked[i]);
+            html.push(li)
+        }
+        return html;
+    }
+    bangumiAdd(bangumi){
+        if(bangumi && bangumi.eplist.length>0){
+            const id = bangumi.id;
+            var bangumiexist = false;
+            for(let i in bangumiLooking){
+                if(bangumiLooking[i].id == id){
+                    bangumiexist = true;
+                    break;
+                }
+            }
+            for(let i in bangumiLooked){
+                if(bangumiLooked[i].id == id || bangumiexist){
+                    bangumiexist = true;
+                    break;
+                }
+            }
+            if(bangumiexist){
+                console.log(`this bangumi is exist!`);
+            }else{
+                bangumiLooking.push(bangumi);
+                fs.writeFile(looking,JSON.stringify(bangumiLooking),"utf-8",function(){});
+            }
+            
+        }
+    }
     render(){
-        var { target } = this.props;
+        var { target,bangumi } = this.props;
         target = target?target:"tMe";
+        this.bangumiAdd(bangumi);
         return (
             <div className={target=="tMe"?"me":"me blurred"} id="me">
-                Me
+                <ul>
+                    <li>列表</li>
+                    {this.bangumiList()}
+                </ul>
             </div>
         )
     }

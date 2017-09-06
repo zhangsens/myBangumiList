@@ -8,37 +8,35 @@ const Search = connect(
     (state) => ({list: state.result,bangumi:state.bangumi})
 )(class Search extends React.Component{
     detail(i,dispatch){
+        const bangumi = this.props.list[i];
         bangumiDetail.style.display = "block";
         bangumiLoading.style.display = "block";
         if(this.props.bangumi && bangumi.id == this.props.bangumi.id){
             bangumiLoading.style.display = "none";
         }else{
-            var bangumi = this.props.list[i];
-            var href = `http://bangumi.tv/${this.props.list[i].href}`;
+            const href = `http://bangumi.tv/${bangumi.href}`;
             get(href,function(res){
                 var html = "";
                 res.on("data",function(chunk){
                     html += chunk;
                 });
                 res.on("end",function(){
-                    var $ = load(html);
+                    var $ = load(html.toString('utf-8'));
                     bangumi.summary = $("#subject_summary").text();
                     bangumi.ephref = `${bangumi.href}/ep`;
                     bangumi.epsum = $(".prg_list li a").length;
                     bangumi.eplist = [];
                     bangumiLoading.style.display = "none";
-                    console.log(bangumi);
                     dispatch({type:"detail",bangumi:bangumi});
                 })
             }).on("error",function(err){
                 console.log(err);
             })
         }
-        //Promise(info).then(eps)
     }
     list(list){
-        var html = [];
-        var dispatch = this.props.dispatch;
+        const html = [];
+        const dispatch = this.props.dispatch;
         for(let i = 0;i<list.length;i++){
             html.push( <li key={list[i].id} className="list"><a onClick={this.detail.bind(this,i,dispatch)}><img className="list-img" src={list[i].img=="/"?``:`http:`+list[i].img} /><b>{list[i].name}</b></a></li> );
         }
