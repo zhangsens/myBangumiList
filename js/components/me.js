@@ -15,51 +15,19 @@ if(exist){
     if(!filelooked){
         fs.writeFileSync(looked,"[]");
     }
-    var bangumiLooking = fs.readFileSync(looking).toString('utf-8');
-    bangumiLooking = bangumiLooking?JSON.parse(bangumiLooking):[];
-    var bangumiLooked = fs.readFileSync(looked).toString('utf-8');
-    bangumiLooked = bangumiLooked?JSON.parse(bangumiLooked):[];
 }else{
     fs.mkdirSync(dir);
     fs.writeFileSync(looking,"[]");
     fs.writeFileSync(looked,"[]");
 }
+var bangumiLooking = fs.readFileSync(looking).toString('utf-8');
+bangumiLooking = bangumiLooking?JSON.parse(bangumiLooking):[];
+var bangumiLooked = fs.readFileSync(looked).toString('utf-8');
+bangumiLooked = bangumiLooked?JSON.parse(bangumiLooked):[];
 
 const Me = connect(
     (state)=>({target:state.target,bangumi:state.bangumi})
 )(class Me extends React.Component{
-    info(bangumi){
-        return (
-            <li key={bangumi.id}>
-                <img src={`http:${bangumi.img}`} />
-                <div className="my-bangumi-li">
-                    <p>{bangumi.name}</p>
-                    <ul>{this.epmap(bangumi.eplist)}</ul>
-                </div>
-            </li>
-        )
-    }
-    epmap(eplist){
-        var eps = [];
-        for(let i in eplist){
-            eps.push(<li key={`${eplist[i].title}`}>{`${eplist[i].ep}`}</li>)
-        }
-        return eps;
-    }
-    bangumiList(){
-        const html = [];
-        html.push(<li key="looking">正在追/补的番剧：</li>);
-        for(let i in bangumiLooking){
-            let li = this.info(bangumiLooking[i]);
-            html.push(li);
-        }
-        html.push(<li key="looked">已经补完的番剧：</li>);
-        for(let i in bangumiLooked){
-            let li = this.info(bangumiLooked[i]);
-            html.push(li)
-        }
-        return html;
-    }
     bangumiAdd(bangumi){
         if(bangumi && bangumi.eplist.length>0){
             const id = bangumi.id;
@@ -83,6 +51,65 @@ const Me = connect(
                 fs.writeFile(looking,JSON.stringify(bangumiLooking),"utf-8",function(){});
             }
             
+        }
+    }
+    bangumiList(){
+        const html = [];
+        html.push(<li key="looking">正在追/补的番剧：</li>);
+        for(let i in bangumiLooking){
+            let li = this.info(bangumiLooking[i]);
+            html.push(li);
+        }
+        html.push(<li key="looked">已经补完的番剧：</li>);
+        for(let i in bangumiLooked){
+            let li = this.info(bangumiLooked[i]);
+            html.push(li)
+        }
+        return html;
+    }
+    info(bangumi){
+        return (
+            <li key={bangumi.id}>
+                <img src={`http:${bangumi.img}`} />
+                <div className="my-bangumi-li">
+                    <p>{bangumi.name}</p>
+                    <ul>{this.epmap(bangumi.id,bangumi.eplist,bangumi.looked)}</ul>
+                </div>
+            </li>
+        )
+    }
+    epmap(id,eplist,looked){
+        var eps = [];
+        for(let i in eplist){
+            eps.push(<li key={i} className={i<looked?`looked`:``} title={`${eplist[i].title}`} onClick={}>{`${eplist[i].ep}`}</li>)
+        }
+        return eps;
+    }
+    lookAt(id,ep){
+        /*
+            观看进度:
+            看完->looked.data
+            没看完->looking.data
+        */
+        for(let i in bangumiLooking){
+            if(bangumiLooking[i].id == id){
+                bangumiLooking[i].looked = ep+1;
+                if(bangumiLooking[i].looked == bangumiLooking[i].epsum){
+                    const bangumi = bangumiLooking.splice(i,1);
+                    bangumiLooked.push(bangumi);
+                }
+                break;
+            }
+        }
+        for(let i in bangumiLooked){
+            if(bangumiLooked[i].id == id){
+                bangumiLooked[i].looked = ep+1;
+                if(bangumiLooked[i].looked == bangumiLooked[i].epsum){
+                    const bangumi = bangumiLooked.splice(i,1);
+                    bangumiLooking.push(bangumi);
+                }
+                break;
+            }
         }
     }
     render(){

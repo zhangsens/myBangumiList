@@ -26,6 +26,7 @@ const Search = connect(
                     bangumi.ephref = `${bangumi.href}/ep`;
                     bangumi.epsum = $(".prg_list li a").length;
                     bangumi.eplist = [];
+                    bangumi.looked = 0;
                     bangumiLoading.style.display = "none";
                     dispatch({type:"detail",bangumi:bangumi});
                 })

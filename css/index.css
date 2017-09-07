@@ -156,6 +156,12 @@ li {
     display: flex;
     line-height: 40px;
     align-items: flex-start;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.me>ul>li img {
+    margin: 10px;
 }
 
 .me .my-bangumi-li {
@@ -179,6 +185,10 @@ li {
     margin: 5px;
     border-radius: 5px;
     background: hsla(0, 0%, 50%, 1);
+}
+
+.me li .looked {
+    background: hsla(185, 81%, 50%, 1) !important;
 }
 
 .blurred {
