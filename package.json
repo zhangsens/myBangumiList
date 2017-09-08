@@ -5,7 +5,8 @@
     "main": "main.js",
     "scripts": {
         "start": "electron .",
-        "build": "build"
+        "build": "build",
+        "dev": "electron . --dev"
     },
     "author": "zhangs",
     "license": "ISC",

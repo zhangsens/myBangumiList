@@ -154,7 +154,7 @@ li {
 
 .me>ul>li {
     display: flex;
-    line-height: 40px;
+    line-height: 38px;
     align-items: flex-start;
     border: 1px solid;
     border-radius: 5px;
@@ -176,15 +176,20 @@ li {
 .me .my-bangumi-li ul {
     display: flex;
     flex-wrap: wrap;
+    height: 50px;
+    overflow: hidden;
+    transition: .5s all ease;
 }
 
 .me .my-bangumi-li ul li {
-    width: 40px;
+    width: 100%;
+    height: 40px;
     line-height: 40px;
     text-align: center;
     margin: 5px;
     border-radius: 5px;
     background: hsla(0, 0%, 50%, 1);
+    overflow: hidden;
 }
 
 .me li .looked {

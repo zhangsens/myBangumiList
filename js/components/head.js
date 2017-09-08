@@ -39,11 +39,9 @@ const Head = connect(
         }
     }
     dangumiSearch(dispatch){
-        console.log("tSearch");
         dispatch({type:"active",target:"tSearch"});
     }
     myBangumiInfo(dispatch){
-        console.log("tMe");
         dispatch({type:"active",target:"tMe"});
     }
     closeWindow(){

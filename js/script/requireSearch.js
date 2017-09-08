@@ -13,12 +13,7 @@ const requireSearch = function(url, page, fn, end) {
             var $ = load(html);
             var li = $("#browserItemList li");
             //判断last page,emmm以后再说;
-            // if (li == 0) {
-            //     end();
-            // } 
-            //one page for test
-            if (1) {
-                fn(li);
+            if (li == 0) {
                 end();
             } else {
                 fn(li);
