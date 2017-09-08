@@ -81,7 +81,7 @@ li {
     background-color: hsla(0, 100%, 100%, 1);
     position: absolute;
     width: 80%;
-    height: 80%;
+    height: 480px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -92,6 +92,7 @@ li {
 }
 
 .bangumi .title {
+    position: absolute;
     margin: 0;
     width: 100%;
     line-height: 30px;
@@ -99,6 +100,8 @@ li {
     background-color: hsla(200, 81%, 50%, 1);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .bangumi .b-close {
@@ -119,6 +122,28 @@ li {
 
 .bangumi .b-close:hover {
     background-color: hsla(200, 80%, 60%, 1);
+}
+
+.bangumi .content {
+    width: 100%;
+    height: 100%;
+}
+
+.bangumi .content img {
+    position: absolute;
+    top: 30;
+}
+
+.bangumi .content button {
+    position: absolute;
+    right: 0;
+    top: 30;
+}
+
+.bangumi .content article {
+    height: 330px;
+    padding: 150px 0 0 0;
+    overflow: auto;
 }
 
 .bangumi .bangumi-loading {
@@ -150,6 +175,7 @@ li {
     width: 100%;
     height: 100%;
     z-index: 0;
+    overflow: auto;
 }
 
 .me>ul>li {

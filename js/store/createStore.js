@@ -14,7 +14,8 @@ const store = createStore((state = {}, action) => {
             break;
         case 'active':
             const _target = action.target;
-            return { result: result, target: _target, bangumi: bangumi };
+            const _reload = ++upload;
+            return { result: result, target: _target, bangumi: bangumi, reload: _reload };
             break;
         case 'detail':
             const _bangumi = action.bangumi;
@@ -26,8 +27,8 @@ const store = createStore((state = {}, action) => {
             return { result: result, target: __target, bangumi: __bangumi }
             break;
         case 'upload':
-            const _reload = ++upload;
-            return { result: result, target: target, bangumi: bangumi, reload: _reload }
+            const __reload = ++upload;
+            return { result: result, target: target, bangumi: bangumi, reload: __reload }
             break;
         default:
             return { state }

@@ -37,9 +37,9 @@ const Bangumi = connect(
             <div className="bangumi" id="bangumiDetail">
                 <div className="title">番剧:{bangumi?bangumi.name:""}</div>
                 <a className="b-close" onClick={this.closed}>×</a>
-                <div>
+                <div className="content">
                     <img src={bangumi?`http:`+bangumi.img:""} alt={bangumi?bangumi.name:""} />
-                    <button onClick={this.addBangumi.bind(this,bangumi,this.props.dispatch)}>add to list</button>
+                    <button onClick={this.addBangumi.bind(this,bangumi,this.props.dispatch)}>添加到列表</button>
                     <article>{bangumi?bangumi.summary:""}</article>
                 </div>
                 <div className="bangumi-loading" id="bangumiLoading">loading</div>

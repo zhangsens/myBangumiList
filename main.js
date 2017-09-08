@@ -11,7 +11,7 @@ function openWindow() {
     win.on("closed", () => {
         win = "";
     });
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 }
 
 app.on('activate', () => {
