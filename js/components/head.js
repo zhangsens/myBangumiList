@@ -69,11 +69,14 @@ const Head = connect(
         target = target?target:"tMe";
         return (
             <div className="header">
-                <span className={target=="tSearch"?"icon active":"icon"} id="tSearch" onClick={this.dangumiSearch.bind(this,this.props.dispatch)}>
-                    {this.searchHTML(target)}
-                </span>
-                <span className={target=="tMe"?"icon active":"icon"} id="tMe" onClick={this.myBangumiInfo.bind(this,this.props.dispatch)}>我的追番</span>
-                <span className="icon" id="close" onClick={this.closeWindow}>×</span>
+                <div className="drag"></div>
+                <div className="face">
+                    <span className={target=="tSearch"?"icon active":"icon"} id="tSearch" onClick={this.dangumiSearch.bind(this,this.props.dispatch)}>
+                        {this.searchHTML(target)}
+                    </span>
+                    <span className={target=="tMe"?"icon active":"icon"} id="tMe" onClick={this.myBangumiInfo.bind(this,this.props.dispatch)}>我的追番</span>
+                    <span className="icon" id="close" onClick={this.closeWindow}>×</span>
+                </div>
             </div>
         )
     }

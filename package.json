@@ -1,11 +1,11 @@
 {
     "name": "deskapp",
     "version": "1.0.1",
-    "description": "",
+    "description": "bangumi",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
-        "build": "build",
+        "build": "build --win --x64",
         "dev": "electron . --dev"
     },
     "author": "zhangs",
