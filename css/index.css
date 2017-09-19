@@ -1,3 +1,20 @@
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px #000000;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px #000000;
+    background-color: #012345;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -45,7 +62,8 @@ li {
 .s-input {
     outline: none;
     border: 1px solid hsla(0, 0%, 0%, 0.2);
-    margin: 10px;
+    margin: 4px;
+    padding: 0px;
     line-height: 20px;
 }
 
@@ -89,6 +107,19 @@ li {
 
 .bangumi {
     display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 3;
+}
+
+.bangumi-shade {
+    width: 100%;
+    height: 100%;
+    background: hsla(0, 0%, 0%, .1)
+}
+
+.bangumi-info {
     background-color: hsla(0, 100%, 100%, 1);
     position: absolute;
     width: 80%;
@@ -140,20 +171,41 @@ li {
     height: 100%;
 }
 
-.bangumi .content img {
+.bangumi .content .bangumi-tip {
+    display: flex;
     position: absolute;
     top: 30;
+    width: 100%;
+    height: 120px;
+    box-sizing: border-box;
 }
 
-.bangumi .content button {
-    position: absolute;
-    right: 0;
-    top: 30;
+.bangumi .content .bangumi-tip span {
+    margin: 10px
 }
 
-.bangumi .content article {
-    height: 330px;
+.bangumi .content .bangumi-tip span img {
+    position: relative;
+}
+
+.bangumi .content .bangumi-tip span button {
+    position: relative;
+}
+
+.bangumi .content .bangumi-date {
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
     padding: 150px 0 0 0;
+    margin: 0 10px;
+}
+
+.bangumi .content .bangumi-summary {
+    margin: 10px;
+}
+
+.bangumi .content .bangumi-summary article {
+    height: 290px;
     overflow: auto;
 }
 
@@ -172,8 +224,10 @@ li {
 .bangumi .bangumi-loading div {
     position: absolute;
     margin: auto;
+    text-align: center;
     width: 100px;
     height: 100px;
+    line-height: 100px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -237,6 +291,10 @@ li {
     filter: blur(2px);
 }
 
+.fg1 {
+    flex-grow: 1;
+}
+
 .loading {
     display: none;
     background: hsla(0, 0%, 100%, 0.8);
@@ -250,4 +308,5 @@ li {
 .loading div {
     color: hsla(0, 0%, 100%, 1);
     background: hsla(0, 0%, 0%, 1);
+    text-align: center;
 }

@@ -2,6 +2,7 @@ import React from "react"
 import { connect } from 'react-redux'
 
 import fs from 'fs'
+console.log("start");
 const dir="./data";
 const looking="./data/looking.data";
 const looked="./data/looked.data";
