@@ -11,7 +11,7 @@
   "author": "zhangs",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.6.8",
+    "electron": "^9.1.0",
     "electron-builder": "^17.9.0"
   },
   "dependencies": {
